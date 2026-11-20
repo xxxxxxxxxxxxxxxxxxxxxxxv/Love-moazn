@@ -1,0 +1,123 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#101827">
+  <meta name="description" content="حوّل ملفات PDF إلى Word وWord إلى PDF مجانًا، مباشرة من متصفحك وبدون تسجيل دخول.">
+  <title>PDF Word Converter — تحويل PDF وWord مجانًا</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700;800&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+  <!-- أضف كود AdSense هنا بعد قبول الموقع، ولا تضع معرفًا تجريبيًا. -->
+</head>
+<body>
+  <div class="ambient ambient-one"></div><div class="ambient ambient-two"></div>
+  <header class="topbar">
+    <a class="brand" href="#" aria-label="PDF Word Converter">
+      <span class="brand-mark"><svg viewBox="0 0 40 40" aria-hidden="true"><rect x="4" y="3" width="23" height="29" rx="5" fill="currentColor" opacity=".95"/><path d="M13 12h9M13 18h9M13 24h6" stroke="#101827" stroke-width="2.2" stroke-linecap="round"/><path d="M25 17h8v16a4 4 0 0 1-4 4h-9V21a4 4 0 0 1 5-4Z" fill="#56E0C0"/><path d="m24 27 3 3 5-6" fill="none" stroke="#10221f" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+      <span><strong>PDF<span>Word</span></strong><small>CONVERTER</small></span>
+    </a>
+    <nav class="nav-actions">
+      <button class="text-btn" id="langToggle" type="button">English</button>
+      <button class="icon-btn" id="themeToggle" type="button" aria-label="تغيير المظهر"><span id="themeIcon">☾</span></button>
+    </nav>
+  </header>
+
+  <main class="shell">
+    <section class="hero">
+      <div class="eyebrow"><span class="pulse"></span><span data-i18n="eyebrow">أدوات مستندات مجانية وسهلة</span></div>
+      <h1 data-i18n="headline">ملفاتك تتحوّل، <span>بكل بساطة.</span></h1>
+      <p class="hero-copy" data-i18n="subheadline">حوّل PDF إلى Word أو Word إلى PDF في ثوانٍ. بدون حساب، وبدون رسوم، مع معالجة ملفاتك داخل متصفحك.</p>
+      <div class="trust-row">
+        <span><b>✓</b><span data-i18n="trust1">مجاني دائمًا</span></span>
+        <span><b>✓</b><span data-i18n="trust2">بدون تسجيل</span></span>
+        <span><b>✓</b><span data-i18n="trust3">خصوصية أفضل</span></span>
+      </div>
+    </section>
+
+    <section class="converter-card" aria-label="أداة تحويل الملفات">
+      <div class="card-top">
+        <div><span class="section-kicker" data-i18n="workspace">مساحة التحويل</span><h2 data-i18n="chooseDirection">اختر نوع التحويل</h2></div>
+        <span class="secure-pill"><span>●</span><span data-i18n="localBadge">معالجة على جهازك</span></span>
+      </div>
+      <div class="mode-switch" role="tablist">
+        <button class="mode active" data-mode="pdf-word" role="tab" aria-selected="true">
+          <span class="mode-icon pdf-icon">PDF</span><span><strong data-i18n="pdfToWord">PDF إلى Word</strong><small data-i18n="editableDoc">ملف DOCX قابل للتعديل</small></span><span class="mode-arrow">↙</span>
+        </button>
+        <button class="mode" data-mode="word-pdf" role="tab" aria-selected="false">
+          <span class="mode-icon word-icon">W</span><span><strong data-i18n="wordToPdf">Word إلى PDF</strong><small data-i18n="shareReady">ملف PDF جاهز للمشاركة</small></span><span class="mode-arrow">↙</span>
+        </button>
+      </div>
+
+      <div class="dropzone" id="dropzone" tabindex="0" role="button" aria-label="اختر ملفًا أو اسحبه هنا">
+        <input id="fileInput" type="file" hidden accept=".pdf,application/pdf">
+        <div class="upload-art"><div class="upload-cloud">↑</div><span class="file-chip chip-pdf">PDF</span><span class="file-chip chip-word">DOCX</span></div>
+        <h3 data-i18n="dropTitle">اسحب ملفك وأفلته هنا</h3>
+        <p data-i18n="dropSubtitle">أو اختر ملفًا من جهازك — الحد الأقصى المقترح 25 MB</p>
+        <button class="choose-btn" id="chooseFile" type="button"><span>＋</span><span data-i18n="browse">اختيار ملف</span></button>
+        <div class="format-note" id="formatNote">يدعم ملفات PDF</div>
+      </div>
+
+      <div class="file-panel hidden" id="filePanel">
+        <div class="file-symbol" id="fileSymbol">PDF</div>
+        <div class="file-meta"><strong id="fileName">document.pdf</strong><span id="fileSize">0 MB</span></div>
+        <button class="remove-btn" id="removeFile" type="button" aria-label="إزالة الملف">×</button>
+      </div>
+
+      <div class="progress-wrap hidden" id="progressWrap">
+        <div class="progress-label"><span id="statusText" data-i18n="preparing">جارٍ تجهيز الملف...</span><strong id="progressPercent">0%</strong></div>
+        <div class="progress-track"><span id="progressBar"></span></div>
+      </div>
+
+      <div class="action-row">
+        <div class="privacy-note"><span class="lock">♢</span><span data-i18n="privacyShort">ملفاتك لا تُرفع إلى خادمنا.</span></div>
+        <button class="convert-btn" id="convertBtn" type="button" disabled><span data-i18n="convert">ابدأ التحويل</span><span class="btn-arrow">←</span></button>
+      </div>
+      <div class="result hidden" id="resultBox" role="status">
+        <div class="result-check">✓</div><div class="result-copy"><strong data-i18n="done">اكتمل التحويل بنجاح</strong><span id="resultName">converted.docx</span></div>
+        <button class="download-btn" id="downloadBtn" type="button"><span data-i18n="download">تنزيل الملف</span> ↓</button>
+      </div>
+      <div class="error-box hidden" id="errorBox" role="alert"></div>
+      <p class="fine-print" data-i18n="finePrint">قد يختلف التنسيق النهائي حسب تعقيد الملف. ملفات PDF الممسوحة ضوئيًا والصور تحتاج إلى OCR، وهذه النسخة تعتمد على النص القابل للاستخراج.</p>
+    </section>
+
+    <div class="ad-slot" aria-label="مساحة إعلانية">
+      <span class="ad-label" data-i18n="adLabel">مساحة إعلانية</span>
+      <div><strong data-i18n="adTitle">إعلانك قد يظهر هنا</strong><p data-i18n="adDesc">نحافظ على مساحة واضحة للإعلانات دون تعطيل تجربة التحويل.</p></div>
+      <span class="ad-spark">✳</span>
+    </div>
+
+    <section class="features">
+      <div class="feature"><span class="feature-icon mint">⌁</span><h3 data-i18n="feature1Title">سهل وسريع</h3><p data-i18n="feature1Text">خطوات قليلة من اختيار الملف إلى تنزيل النتيجة.</p></div>
+      <div class="feature"><span class="feature-icon violet">◇</span><h3 data-i18n="feature2Title">خصوصيتك أولًا</h3><p data-i18n="feature2Text">تتم المعالجة محليًا في المتصفح دون رفع ملفاتك.</p></div>
+      <div class="feature"><span class="feature-icon amber">∞</span><h3 data-i18n="feature3Title">مجاني بلا حساب</h3><p data-i18n="feature3Text">استخدم الأدوات دون تسجيل أو اشتراك.</p></div>
+    </section>
+
+    <section class="faq">
+      <div class="faq-heading"><span class="section-kicker" data-i18n="help">معلومات مهمة</span><h2 data-i18n="faqTitle">أسئلة شائعة</h2></div>
+      <details><summary data-i18n="q1">هل الموقع مجاني؟</summary><p data-i18n="a1">نعم، التحويل متاح مجانًا ولا يتطلب إنشاء حساب.</p></details>
+      <details><summary data-i18n="q2">هل يتم حفظ ملفاتي؟</summary><p data-i18n="a2">تتم معالجة الملفات داخل متصفحك، ولا يرسل هذا الموقع ملفاتك إلى خادم خاص به. تبقى مسؤولًا عن الجهاز والمتصفح الذي تستخدمه.</p></details>
+      <details><summary data-i18n="q3">هل يحتفظ Word بنفس تنسيق PDF؟</summary><p data-i18n="a3">تتم إعادة بناء النصوص والفقرات. قد لا ينتقل التخطيط المعقد أو الأعمدة أو الجداول أو الخطوط بدقة كاملة.</p></details>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <a class="footer-brand" href="#">PDF Word Converter</a>
+    <p data-i18n="footerText">أدوات بسيطة تساعدك على إنجاز المزيد.</p>
+    <div class="footer-links"><a href="#privacy" id="privacyLink" data-i18n="privacyLink">الخصوصية</a><span>•</span><a href="#about" id="aboutLink" data-i18n="aboutLink">عن الموقع</a></div>
+    <small>© <span id="year"></span> PDF Word Converter</small>
+  </footer>
+
+  <div class="modal hidden" id="infoModal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+    <div class="modal-card"><button class="modal-close" id="modalClose" aria-label="إغلاق">×</button><h2 id="modalTitle"></h2><p id="modalText"></p></div>
+  </div>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/docx@8.5.0/build/index.umd.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/mammoth/1.8.0/mammoth.browser.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
